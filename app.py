@@ -4,6 +4,7 @@
 
 import os
 import urllib.request
+import urllib.error
 import streamlit as st
 
 import cv2
@@ -21,16 +22,21 @@ from skimage.feature import hog
 MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "chest_xray_model.pkl")
 
-# TODO: Replace the placeholder below with your actual direct download URL 
-# (e.g., from GitHub Releases, Hugging Face, or Google Drive direct link)
-MODEL_URL = "https://github.com/reddylikhith999-bit/Image_project/releases/download/v1.0/chest_xray_model.pkl"
+# Replace this placeholder with your actual direct download link (e.g., from GitHub Releases)
+MODEL_URL = "YOUR_DIRECT_DOWNLOAD_URL_HERE"
 
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-# Automatically download the model file on Streamlit Cloud if it's missing
 if not os.path.exists(MODEL_PATH):
     with st.spinner("Downloading model weights... This may take a moment on first load."):
-        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+        try:
+            urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+        except urllib.error.HTTPError as e:
+            st.error(f"Failed to download model (HTTP Error {e.code}): Please check your MODEL_URL.")
+            st.stop()
+        except Exception as e:
+            st.error(f"An error occurred while downloading the model: {e}")
+            st.stop()
 
 saved_data = joblib.load(MODEL_PATH)
 
