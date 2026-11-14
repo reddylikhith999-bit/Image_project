@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+model/
+chest_xray/
+.DS_Store
+.vscode/
