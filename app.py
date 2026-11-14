@@ -134,18 +134,6 @@ if uploaded_file is not None:
 
         # Predict
         prediction = model.predict(features)[0]
-
-        # Get class probability and cap/scale it below 80%
-        if hasattr(model, "predict_proba"):
-            probabilities = model.predict_proba(features)[0]
-            raw_confidence = probabilities[prediction]
-            
-            # Scale down and cap confidence so it never exceeds 80%
-            capped_prob = min(raw_confidence * 0.78, 0.80)
-            confidence = capped_prob * 100
-        else:
-            confidence = 75.0
-
         predicted_class = CLASSES[prediction]
 
         st.subheader("Prediction Result")
@@ -154,7 +142,3 @@ if uploaded_file is not None:
             st.success("Prediction: NORMAL")
         else:
             st.warning("Prediction: PNEUMONIA")
-
-        st.write(
-            f"Model probability: {confidence:.2f}%"
-        )
