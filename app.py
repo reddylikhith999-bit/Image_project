@@ -2,6 +2,8 @@
 # 1. IMPORT LIBRARIES
 # ==========================================
 
+import os
+import urllib.request
 import streamlit as st
 
 import cv2
@@ -13,12 +15,24 @@ from skimage.feature import hog
 
 
 # ==========================================
-# 2. LOAD TRAINED MODEL
+# 2. LOAD TRAINED MODEL (WITH AUTO-DOWNLOAD)
 # ==========================================
 
-saved_data = joblib.load(
-    "model/chest_xray_model.pkl"
-)
+MODEL_DIR = "model"
+MODEL_PATH = os.path.join(MODEL_DIR, "chest_xray_model.pkl")
+
+# TODO: Replace the placeholder below with your actual direct download URL 
+# (e.g., from GitHub Releases, Hugging Face, or Google Drive direct link)
+MODEL_URL = "YOUR_DIRECT_DOWNLOAD_URL_HERE"
+
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+# Automatically download the model file on Streamlit Cloud if it's missing
+if not os.path.exists(MODEL_PATH):
+    with st.spinner("Downloading model weights... This may take a moment on first load."):
+        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+
+saved_data = joblib.load(MODEL_PATH)
 
 model = saved_data["model"]
 model_name = saved_data["model_name"]
@@ -135,6 +149,3 @@ if uploaded_file is not None:
         st.write(
             f"Model probability: {confidence:.2f}%"
         )
-
-
-        
