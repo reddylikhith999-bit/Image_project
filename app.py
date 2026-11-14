@@ -22,8 +22,8 @@ from skimage.feature import hog
 MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "chest_xray_model.pkl")
 
-# Replace this placeholder with your actual direct download link (e.g., from GitHub Releases)
-MODEL_URL = "https://github.com/reddylikhith999-bit/Image_project/releases/download/v1.0/chest_xray_model.pkl"
+# Updated with your actual GitHub repository URL structure
+MODEL_URL = "https://huggingface.co/reddylikhith999/chest-xray-model/resolve/main/chest_xray_model.pkl"
 
 os.makedirs(MODEL_DIR, exist_ok=True)
 
