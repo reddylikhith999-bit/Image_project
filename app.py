@@ -23,7 +23,7 @@ MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "chest_xray_model.pkl")
 
 # Replace this placeholder with your actual direct download link (e.g., from GitHub Releases)
-MODEL_URL = "YOUR_DIRECT_DOWNLOAD_URL_HERE"
+MODEL_URL = "https://github.com/reddylikhith999-bit/Image_project/releases/download/v1.0/chest_xray_model.pkl"
 
 os.makedirs(MODEL_DIR, exist_ok=True)
 
