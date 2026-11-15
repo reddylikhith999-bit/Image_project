@@ -132,7 +132,7 @@ if uploaded_file is not None:
         # Convert into 2D array
         features = features.reshape(1, -1)
 
-        # Predict
+        # Predict–––––
         prediction = model.predict(features)[0]
         predicted_class = CLASSES[prediction]
 
