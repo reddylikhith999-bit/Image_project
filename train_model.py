@@ -128,8 +128,11 @@ models = {
         ))
     ]),
 
+    # Tip: If you want to restrict accuracy/prevent over-optimization, 
+    # you can lower max_depth (e.g., max_depth=5) or reduce n_estimators.
     "Random Forest": RandomForestClassifier(
-        n_estimators=100,
+        n_estimators=50,
+        max_depth=6,
         class_weight="balanced",
         random_state=42,
         n_jobs=-1
@@ -139,6 +142,7 @@ models = {
         ("scaler", StandardScaler()),
         ("model", SVC(
             kernel="linear",
+            C=0.01,
             probability=True,
             class_weight="balanced",
             random_state=42
